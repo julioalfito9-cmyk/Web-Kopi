@@ -14,45 +14,29 @@ Alpine.store('cart', {
     total: 0,
     quantity: 0,
     add(newItem) {
-        const cartItem = this.items.find(item => item.id === newItem.id);
 
-        if (cartItem) {
-            cartItem.quantity += 1;
-            cartItem.total = cartItem.price * cartItem.quantity;
-        } else {
-            this.items.push({
-                ...newItem,
-                quantity: 1,
-                total: newItem.price
-            });
+        const cartItem = this.items.find((item) => item.id === newItem.id);
+
+        if(!cartItem) {
+            this.items.push({...newItem, quantity: 1, total: newItem.price});
+            this.quantity++;
+            this.total += newItem.price
+        }   
+        else {
+            this.items = this.items.map((item) => {
+                if(item.id !== newItem.id) {
+                    return item;
+                }
+                else {
+                    item.quantity++;
+                    item.total = item.price * item.quantity;
+                    this.quantity++;
+                    this.total += item.price
+                    return item;
+                }
+            })
         }
 
-        this.quantity += 1;
-        this.total += newItem.price;
-    },
-
-    increase(id) {
-        const cartItem = this.items.find(item => item.id === id);
-        if (!cartItem) return;
-
-        cartItem.quantity += 1;
-        cartItem.total = cartItem.price * cartItem.quantity;
-        this.quantity += 1;
-        this.total += cartItem.price;
-    },
-
-    decrease(id) {
-        const cartItem = this.items.find(item => item.id === id);
-        if (!cartItem) return;
-
-        cartItem.quantity -= 1;
-        cartItem.total = cartItem.price * cartItem.quantity;
-        this.quantity -= 1;
-        this.total -= cartItem.price;
-
-        if (cartItem.quantity <= 0) {
-            this.items = this.items.filter(item => item.id !== id);
-        }
     }
     })
 });

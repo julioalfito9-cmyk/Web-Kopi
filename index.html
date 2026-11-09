@@ -61,7 +61,7 @@
 
       <!-- Shopping Cart start -->
       <div class="shopping-cart">
-        <template x-for="item in $store.cart.items" :key="item.id">
+        <template x-for="item in items" :key="item.id">
         <div class="cart-item">
           <img :src="`img/products/${item.img}`" :alt="item.name" />
           <div class="item-detail">

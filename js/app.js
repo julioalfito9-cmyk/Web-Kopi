@@ -23,7 +23,7 @@ Alpine.store('cart', {
             this.total += newItem.price
         }   
         else {
-            this.item = this.item.map((item) => {
+            this.items = this.items.map((item) => {
                 if(item.id !== newItem.id) {
                     return item;
                 }

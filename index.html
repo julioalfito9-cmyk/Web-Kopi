@@ -166,7 +166,7 @@
       </p>
 
       <div class="row">
-        <template x-for="(item, index) in items" x-key="index">
+        <template x-for="item in $store.cart.items" :key="item.id">
           <div class="product-card">
           <div class="product-icons">
             <a href="#" @click.prevent="$store.cart.add(item)">

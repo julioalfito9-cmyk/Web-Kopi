@@ -61,16 +61,16 @@
 
       <!-- Shopping Cart start -->
       <div class="shopping-cart">
-        <template x-for="item in items" :key="item.id">
+        <template x-for="item in $store.cart.items" :key="item.id">
         <div class="cart-item">
           <img :src="`img/products/${item.img}`" :alt="item.name" />
           <div class="item-detail">
             <h3 x-text="item.name"></h3>
             <div class="item-price">
               <span x-text="rupiah(item.price)"></span> &times;
-              <button type="button" @click="$store.cart.decrease(item.id)">&minus;</button>
+              <button id="remove">&minus;</button>
               <span x-text="item.quantity"></span>
-              <button type="button" @click="$store.cart.increase(item.id)">&plus;</button>&equals;
+              <button id="add">&plus;</button>&equals;
               <span x-text="rupiah(item.total)">Rp 30.000</span>
             </div>
           </div>
@@ -166,7 +166,7 @@
       </p>
 
       <div class="row">
-        <template x-for="item in $store.cart.items" :key="item.id">
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
           <div class="product-card">
           <div class="product-icons">
             <a href="#" @click.prevent="$store.cart.add(item)">
